@@ -1,18 +1,16 @@
 import sys
-from moves import moveF
-from moves import moveT
-from moves import moveB
+from moves import moveFront, moveTop, moveBottom, moveBack, moveFrontReverse, moveBackReverse, moveLeft, moveLeftReverse, moveRightReverse, moveBottomReverse, moveTopReverse
 
 
 
 def init():
     return {
-        "Top": [["⬜", "⬜", "⬜"], ["⬜", "⬜", "⬜"], ["⬜", "⬜", "⬜"]],
-        "Bottom": [["🟨", "🟨", "🟨"], ["🟨", "🟨", "🟨"], ["🟨", "🟨", "🟨"]],
-        "Left": [["🟩", "🟩", "🟩"], ["🟩", "🟩", "🟩"], ["🟩", "🟩", "🟩"]],
+        "Top": [["⬜", "⬜tt", "⬜"], ["⬜thomas", "⬜", "⬜"], ["⬜", "⬜", "atchoum⬜"]],
+        "Bottom": [["🟨", "🟨paraplue", "🟨"], ["🟨aaaaaa", "🟨", "🟨"], ["🟨", "🟨", "🟨bbbb"]],
+        "Left": [["yy", "🟩", "🟩"], ["🟩", "🟩", "🟩"], ["🟩", "🟩", "🟩"]],
         "Right": [["🟦", "🟦", "🟦"], ["🟦", "🟦", "🟦"], ["🟦", "🟦", "🟦"]],
-        "Front": [["🟥", "⬜", "🟥"], ["🟥", "🟥", "🟥"], ["🟥", "🟥", "🟥"]],
-        "Back": [["🟧", "🟧", "🟧"], ["🟧", "🟧", "🟧"], ["🟧", "🟧", "🟧"]],
+        "Front": [["caca", "🟥", "🟥"], ["🟥", "🟥", "🟥"], ["🟥", "🟥", "🟥"]],
+        "Back": [["hoho", "🟧ffff", "🟧"], ["🟧", "🟧", "roturier🟧"], ["🟧eee", "🟧", "🟧"]],
     }
 
 
@@ -24,12 +22,12 @@ def parsing(mv):
         "B",
         "L",
         "D",
-        "F’",
-        "R’",
-        "U’",
-        "B’",
-        "L’",
-        "D’",
+        "F'",
+        "R'",
+        "U'",
+        "B'",
+        "L'",
+        "D'",
         "F2",
         "R2",
         "U2",
@@ -46,8 +44,9 @@ def main():
     move = sys.argv[1].split()
     parsing(move)
     rubik = init()
-    moveB(rubik, "Bottom")
-    print(rubik)
+    moveBottomReverse(rubik, "Bottom")
+    for e in rubik:
+        print(e, rubik[e])
 
 
 if __name__ == "__main__":
