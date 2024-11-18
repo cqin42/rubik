@@ -1,5 +1,9 @@
 import sys
 from moves import moveF
+from moves import moveT
+from moves import moveB
+
+
 
 def init():
     return {
@@ -42,7 +46,7 @@ def main():
     move = sys.argv[1].split()
     parsing(move)
     rubik = init()
-    moveF(rubik, "Front")
+    moveD(rubik, "Bottom")
     print(rubik)
 
 

@@ -38,5 +38,29 @@ def moveF(rubik, direction):
         rubik["Left"][i][0] = lastBottomLine[i]
 
 
+def moveT(rubik, direction):
+    rubik[direction] = np.rot90(rubik[direction], 3)
+    
+    firstRowBack = rubik["Back"][0]
+    firstRowLeft = rubik["Left"][0]
+    firstRowFront = rubik["Front"][0]
+    firstRowRight = rubik["Right"][0]
 
+    rubik["Back"][0] = firstRowRight
+    rubik["Left"][0] = firstRowBack
+    rubik["Front"][0] = firstRowLeft
+    rubik["Right"][0] = firstRowFront
+
+def moveB(rubik, direction):
+    rubik[direction] = np.rot90(rubik[direction], 1)
+
+    lastRowBack = rubik["Back"][2]
+    lastRowLeft = rubik["Left"][2]
+    lastRowFront = rubik["Front"][2]
+    lastRowRight = rubik["Right"][2]
+
+    rubik["Back"][2] = lastRowRight
+    rubik["Left"][2] = lastRowBack
+    rubik["Front"][2] = lastRowLeft
+    rubik["Right"][2] = lastRowFront
 
