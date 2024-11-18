@@ -46,7 +46,7 @@ def main():
     move = sys.argv[1].split()
     parsing(move)
     rubik = init()
-    moveD(rubik, "Bottom")
+    moveB(rubik, "Bottom")
     print(rubik)
 
 
