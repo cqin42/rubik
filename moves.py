@@ -23,10 +23,37 @@ import numpy as np
 #         "D2",
 #     ]
 
+def rotate(n):
+    buf = ""
+    for i in range(3):
+        for j in range(3):
+            if i != 1 or j != 1:
+                buf += n[i][j]
+    li = [5,3,0,6,1,7,4,2]
+    tmp = 0
+    for i in range(3):
+        for j in range(3):
+            if i != 1 or j != 1:
+                n[i][j] = buf[li[tmp]]
+                tmp += 1
+
+def rotateReverse(n):
+    buf = ""
+    for i in range(3):
+        for j in range(3):
+            if i != 1 or j != 1:
+                buf += n[i][j]
+    li = [2, 4, 7, 1, 6, 0, 3, 5]
+    tmp = 0
+    for i in range(3):
+        for j in range(3):
+            if i != 1 or j != 1:
+                n[i][j] = buf[li[tmp]]
+                tmp += 1
 
 def moveFront(rubik, direction):
     fb = 2
-    rubik[direction] = np.rot90(rubik[direction], 3)
+    rotate(rubik["Front"])
     lastTopLine = rubik["Top"][fb]
     firstColumnRight = [rubik["Right"][i][0] for i in range(3)]
     lastBottomLine = rubik["Bottom"][fb]
@@ -41,7 +68,7 @@ def moveFront(rubik, direction):
 
 def moveBack(rubik, direction):
     fb = 0
-    rubik[direction] = np.rot90(rubik[direction], 3)
+    rotate(rubik["Back"])
     lastTopLine = rubik["Top"][fb]
     firstColumnRight = [rubik["Right"][i][0] for i in range(3)]
     lastBottomLine = rubik["Bottom"][fb]
@@ -55,8 +82,8 @@ def moveBack(rubik, direction):
         rubik["Left"][i][0] = lastTopLine[i]
 
 def moveBottom(rubik, direction):
-    ud = 0 if direction == "Top" else 2
-    rubik[direction] = np.rot90(rubik[direction], 3 if ud == 0 else 1)
+    ud = 2
+    rotate(rubik["Bottom"])
 
     firstRowBack = rubik["Back"][ud]
     firstRowLeft = rubik["Left"][ud]
@@ -69,8 +96,10 @@ def moveBottom(rubik, direction):
     rubik["Right"][ud] = firstRowFront
 
 def moveTop(rubik, direction):
-    ud = 0 if direction == "Top" else 2
-    rubik[direction] = np.rot90(rubik[direction], 3 if ud == 0 else 1)
+    print(rubik)
+    print("-----------------------------------------")
+    ud = 0
+    rotate(rubik["Top"])
 
     firstRowBack = rubik["Back"][ud]
     firstRowLeft = rubik["Left"][ud]
@@ -98,7 +127,7 @@ def moveRight(rubik, side):
     for i in range(3):
         rubik["Bottom"][i][rl] = lastColumnBack[i]
 
-    rubik[side] = np.rot90(rubik[side], 1)
+    rotate(rubik["Right"])
 
 def moveLeft(rubik, side):
     rl = 0
@@ -116,11 +145,11 @@ def moveLeft(rubik, side):
     for i in range(3):
         rubik["Bottom"][i][rl] = lastColumnFront[i]
 
-    rubik[side] = np.rot90(rubik[side], 3)
+    rotate(rubik["Left"])
 
 def moveFrontReverse(rubik, direction):
     fb = 2
-    rubik[direction] = np.rot90(rubik[direction], 1)
+    rotateReverse(rubik["Front"])
     lastTopLine = rubik["Top"][fb]
     firstColumnRight = [rubik["Right"][i][0] for i in range(3)]
     lastBottomLine = rubik["Bottom"][fb]
@@ -136,7 +165,7 @@ def moveFrontReverse(rubik, direction):
 
 def moveBackReverse(rubik, direction):
     fb = 0
-    rubik[direction] = np.rot90(rubik[direction], 1)
+    rotateReverse(rubik["Back"])
     lastTopLine = rubik["Top"][fb]
     firstColumnRight = [rubik["Right"][i][0] for i in range(3)]
     lastBottomLine = rubik["Bottom"][fb]
@@ -165,7 +194,7 @@ def moveLeftReverse(rubik, side):
     for i in range(3):
         rubik["Bottom"][i][rl] = lastColumnBack[i]
 
-    rubik[side] = np.rot90(rubik[side], 1)
+    rotateReverse(rubik["Left"])
 
 
 def moveRightReverse(rubik, side):
@@ -184,12 +213,12 @@ def moveRightReverse(rubik, side):
     for i in range(3):
         rubik["Bottom"][i][rl] = lastColumnFront[i]
 
-    rubik[side] = np.rot90(rubik[side], 3)
+    rotateReverse(rubik["Right"])
 
 
 def moveTopReverse(rubik, direction):
     ud = 0 if direction == "Top" else 2
-    rubik[direction] = np.rot90(rubik[direction], 1 if ud == 0 else 3)
+    rotateReverse(rubik["Top"])
 
     firstRowBack = rubik["Back"][ud]
     firstRowLeft = rubik["Left"][ud]
@@ -203,7 +232,7 @@ def moveTopReverse(rubik, direction):
 
 def moveBottomReverse(rubik, direction):
     ud = 0 if direction == "Top" else 2
-    rubik[direction] = np.rot90(rubik[direction], 3)
+    rotateReverse(rubik["Bottom"])
 
     firstRowBack = rubik["Back"][ud]
     firstRowLeft = rubik["Left"][ud]
