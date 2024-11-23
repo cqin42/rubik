@@ -23,13 +23,16 @@ import numpy as np
 #         "D2",
 #     ]
 
+
 def rotate(n):
-    buf = ""
+    buf = {}
+    t = 0
     for i in range(3):
         for j in range(3):
             if i != 1 or j != 1:
-                buf += n[i][j]
-    li = [5,3,0,6,1,7,4,2]
+                buf[t] = n[i][j]
+                t += 1
+    li = [5, 3, 0, 6, 1, 7, 4, 2]
     tmp = 0
     for i in range(3):
         for j in range(3):
@@ -37,12 +40,15 @@ def rotate(n):
                 n[i][j] = buf[li[tmp]]
                 tmp += 1
 
+
 def rotateReverse(n):
-    buf = ""
+    buf = {}
+    t = 0
     for i in range(3):
         for j in range(3):
             if i != 1 or j != 1:
-                buf += n[i][j]
+                buf[t] = n[i][j]
+                t += 1
     li = [2, 4, 7, 1, 6, 0, 3, 5]
     tmp = 0
     for i in range(3):
@@ -50,6 +56,7 @@ def rotateReverse(n):
             if i != 1 or j != 1:
                 n[i][j] = buf[li[tmp]]
                 tmp += 1
+
 
 def moveFront(rubik, direction):
     fb = 2
@@ -60,26 +67,35 @@ def moveFront(rubik, direction):
     lastColumnLeft = [rubik["Left"][i][fb] for i in range(3)]
 
     rubik["Top"][fb] = lastColumnLeft
-    for i in range (3):
+    for i in range(3):
         rubik["Right"][i][0] = lastTopLine[i]
     rubik["Bottom"][fb] = firstColumnRight
-    for i in range (3):
+    for i in range(3):
         rubik["Left"][i][2] = lastBottomLine[i]
+
 
 def moveBack(rubik, direction):
     fb = 0
     rotate(rubik["Back"])
-    lastTopLine = rubik["Top"][fb]
+    lastTopLine = rubik["Top"][2]
     firstColumnRight = [rubik["Right"][i][0] for i in range(3)]
-    lastBottomLine = rubik["Bottom"][fb]
+    lastBottomLine = rubik["Bottom"][2]
+    # print(first)
     lastColumnLeft = [rubik["Left"][i][fb] for i in range(3)]
 
+
     rubik["Top"][fb] = firstColumnRight
-    for i in range (3):
-        rubik["Right"][i][2] = lastBottomLine[i]
-    rubik["Bottom"][fb] = lastColumnLeft
-    for i in range (3):
-        rubik["Left"][i][0] = lastTopLine[i]
+    tmp = 0
+    for i in range(2,-1,-1):
+        rubik["Right"][tmp][2] = lastBottomLine[i]
+        tmp += 1
+    rubik["Bottom"][2] = lastColumnLeft
+    print(lastTopLine)
+    tmp = 0
+    for i in range(2,-1,-1):
+        rubik["Left"][tmp][0] = lastTopLine[i]
+        tmp += 1
+
 
 def moveBottom(rubik, direction):
     ud = 2
@@ -95,9 +111,8 @@ def moveBottom(rubik, direction):
     rubik["Front"][ud] = firstRowLeft
     rubik["Right"][ud] = firstRowFront
 
+
 def moveTop(rubik, direction):
-    print(rubik)
-    print("-----------------------------------------")
     ud = 0
     rotate(rubik["Top"])
 
@@ -110,6 +125,7 @@ def moveTop(rubik, direction):
     rubik["Left"][ud] = firstRowFront
     rubik["Front"][ud] = firstRowRight
     rubik["Right"][ud] = firstRowBack
+
 
 def moveRight(rubik, side):
     rl = 2
@@ -129,6 +145,7 @@ def moveRight(rubik, side):
 
     rotate(rubik["Right"])
 
+
 def moveLeft(rubik, side):
     rl = 0
     lastColumnFront = [rubik["Front"][i][rl] for i in range(3)]
@@ -147,6 +164,7 @@ def moveLeft(rubik, side):
 
     rotate(rubik["Left"])
 
+
 def moveFrontReverse(rubik, direction):
     fb = 2
     rotateReverse(rubik["Front"])
@@ -156,10 +174,10 @@ def moveFrontReverse(rubik, direction):
     lastColumnLeft = [rubik["Left"][i][fb] for i in range(3)]
 
     rubik["Top"][fb] = firstColumnRight
-    for i in range (3):
+    for i in range(3):
         rubik["Right"][i][0 if fb == 2 else 2] = lastBottomLine[i]
     rubik["Bottom"][fb] = lastColumnLeft
-    for i in range (3):
+    for i in range(3):
         rubik["Left"][i][2 if fb == 2 else 0] = lastTopLine[i]
 
 
@@ -172,11 +190,12 @@ def moveBackReverse(rubik, direction):
     lastColumnLeft = [rubik["Left"][i][fb] for i in range(3)]
 
     rubik["Top"][fb] = lastColumnLeft
-    for i in range (3):
+    for i in range(3):
         rubik["Right"][i][2] = lastTopLine[i]
     rubik["Bottom"][fb] = firstColumnRight
-    for i in range (3):
+    for i in range(3):
         rubik["Left"][i][0] = lastBottomLine[i]
+
 
 def moveLeftReverse(rubik, side):
     rl = 0
@@ -201,7 +220,7 @@ def moveRightReverse(rubik, side):
     rl = 2
     lastColumnFront = [rubik["Front"][i][rl] for i in range(3)]
     lastColumnTop = [rubik["Top"][i][rl] for i in range(3)]
-    lastColumnBack = [rubik["Back"][i][0] for i in range(2,-1,-1)]
+    lastColumnBack = [rubik["Back"][i][0] for i in range(2, -1, -1)]
     lastColumnBottom = [rubik["Bottom"][i][rl] for i in range(3)]
 
     for i in range(3):
@@ -229,6 +248,7 @@ def moveTopReverse(rubik, direction):
     rubik["Left"][ud] = firstRowBack
     rubik["Front"][ud] = firstRowLeft
     rubik["Right"][ud] = firstRowFront
+
 
 def moveBottomReverse(rubik, direction):
     ud = 0 if direction == "Top" else 2
