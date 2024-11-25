@@ -13,6 +13,7 @@ from moves import (
     moveTopReverse,
     moveRight,
 )
+from firstLayerEdges import firstLayerEdge
 
 
 def print_rubik(cube):
@@ -149,6 +150,8 @@ def main():
     for e in rubik:
         print(e, rubik[e])
     print_rubik(rubik)
+    print("-----------------------------------------")
+    firstLayerEdge(rubik)
 
 
 if __name__ == "__main__":
