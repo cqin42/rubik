@@ -16,20 +16,25 @@ from moves import (
 
 
 def print_rubik(cube):
-
-    for i in range(3):
+    for i in range(2, -1, -1):
         keys = []
         for j in range(3):
-            keys += [k for k,v in cube["Top"][i][j].items()]
-        print("            " + " ".join(keys), end = "\n")
-    left_keys, front_keys,right_keys,back_keys,bottom_keys=[], [], [], [],[]
+            keys += [k for k, v in cube["Top"][i][j].items()]
+        print("            " + " ".join(keys), end="\n")
+    left_keys, front_keys, right_keys, back_keys, bottom_keys = (
+        [],
+        [],
+        [],
+        [],
+        [],
+    )
     for i in range(3):
         for j in range(3):
-            left_keys += [k for k,v in cube["Left"][i][j].items()]
-            front_keys += [k for k,v in cube["Front"][i][j].items()]
-            right_keys += [k for k,v in cube["Right"][i][j].items()]
-            back_keys += [k for k,v in cube["Back"][i][j].items()]
-            bottom_keys += [k for k,v in cube["Bottom"][i][j].items()]
+            left_keys += [k for k, v in cube["Left"][i][j].items()]
+            front_keys += [k for k, v in cube["Front"][i][j].items()]
+            right_keys += [k for k, v in cube["Right"][i][j].items()]
+            back_keys += [k for k, v in cube["Back"][i][j].items()]
+            bottom_keys += [k for k, v in cube["Bottom"][i][j].items()]
 
     tmp, str = 3, ""
     ll = [left_keys, front_keys, right_keys, back_keys]
@@ -49,7 +54,7 @@ def print_rubik(cube):
             str += bottom_keys[tmp] + " "
             tmp += 1
         str += "\n"
-    print (str)
+    print(str)
 
 
 def init():
@@ -80,9 +85,9 @@ def init():
             [{"🟩": [43, 1, 3]}, {"🟩": [44, 2, 4]}, {"🟩": [45, 1, 4]}],
         ],
         "Bottom": [
-            [{"a": [46, 1, 1]}, {"🟨": [47, 2, 1]}, {"🟨": [48, 1, 2]}],
-            [{"b": [49, 2, 2]}, {"🟨": [50, 0, 0]}, {"🟨": [51, 2, 3]}],
-            [{"c": [52, 1, 3]}, {"🟨": [53, 2, 4]}, {"🟨": [54, 1, 4]}],
+            [{"🟨": [46, 1, 1]}, {"🟨": [47, 2, 1]}, {"🟨": [48, 1, 2]}],
+            [{"🟨": [49, 2, 2]}, {"🟨": [50, 0, 0]}, {"🟨": [51, 2, 3]}],
+            [{"🟨": [52, 1, 3]}, {"🟨": [53, 2, 4]}, {"🟨": [54, 1, 4]}],
         ],
     }
 
